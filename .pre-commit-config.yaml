@@ -1,0 +1,38 @@
+repos:
+  # Ruff for formatting and linting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.0
+    hooks:
+      # Formatter
+      - id: ruff-format
+        files: ^(config|core|models|utils)/
+      # Linter with auto-fix
+      - id: ruff
+        args: [--fix]
+        files: ^(config|core|models|utils)/
+
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+      # Ensure newline at end of file
+      - id: end-of-file-fixer
+      # Validate YAML
+      - id: check-yaml
+      # Validate TOML
+      - id: check-toml
+      # Validate JSON
+      - id: check-json
+      # Prevent large files
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      # Validate merge conflicts
+      - id: check-merge-conflict
+      # Validate files with shebang
+      - id: check-shebang-scripts-are-executable
+      # Prevent debug statements
+      - id: debug-statements
+      # Validate file names
+      - id: check-case-conflict

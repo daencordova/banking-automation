@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "banking-automation"
+version = "0.1.0"
+description = "Playwright bot that logs into a Banking account and prints balances."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Daniel Cordova", email = "daencordova@gmail.com" }]
+license = { text = "MIT" }
+keywords = ["playwright", "automation", "banking"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "playwright>=1.40.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+    "pre-commit>=3.7.0",
+    "mypy>=1.10.0",
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+banking-automation = "app.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# ---------------------------------------------------------------------------
+# Ruff
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+exclude = [".git", ".venv", "__pycache__", "build", "dist", "*.egg-info", "data"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = [
+    "E", "W",      # pycodestyle
+    "F",           # pyflakes
+    "I",           # isort
+    "N",           # pep8-naming
+    "D",           # pydocstyle
+    "UP",          # pyupgrade
+    "B",           # bugbear
+    "SIM",         # simplify
+    "C4",          # comprehensions
+    "TID",         # tidy imports
+    "TCH",         # type-checking imports
+    "T20",         # no print (we allow in cli only)
+    "RET",         # return simplifications
+    "ARG",         # unused args
+    "PL",          # pylint
+    "LOG",         # logging
+]
+ignore = [
+    "D100",   # missing module docstring
+    "D104",   # missing package docstring
+    "D107",   # missing __init__ docstring
+    "D102",   # missing docstring in public method (context managers)
+    "E501",   # handled by formatter
+    "COM812", # conflicts with formatter
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+combine-as-imports = true
+force-sort-within-sections = true
+
+# ---------------------------------------------------------------------------
+# Mypy
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+exclude = ["tests/", "data/"]
+
+# ---------------------------------------------------------------------------
+# Pytest / Coverage
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["tests/*", "*/__init__.py"]

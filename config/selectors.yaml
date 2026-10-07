@@ -1,0 +1,19 @@
+login:
+  username_input: 'input[formcontrolname="username"], input[aria-label="usuario"]'
+  password_input: 'input[formcontrolname="password"], input[name="password"]'
+  login_button: '.button-login-container button[type="submit"]'
+  continue_button: '.button-container button[type="submit"]'
+
+accounts:
+  accounts_table: "table.table-saldo-cuenta"
+  account_rows: "table.table-saldo-cuenta tbody tr"
+  account_type_cell: "td[headers='cuenta']"
+  account_number_cell: "td[headers='numero']"
+  visibility_icon: 'mat-icon:has-text("visibility")'
+
+balance_dialog:
+  balance_dialog: "mat-dialog-container"
+  balance_rows: "mat-dialog-container tbody tr"
+  balance_diferido_cell: "td:nth-child(2)"
+  balance_disponible_cell: "td:nth-child(3)"
+  dialog_close_button: "mat-dialog-container button[mat-dialog-close]"
